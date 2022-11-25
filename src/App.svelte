@@ -24,6 +24,8 @@
     saunaSessions = resp.data as SaunaSession[];
     lastSession = saunaSessions[saunaSessions.length - 1];
   });
+
+  const generateIndex = (i: number) => i + 1;
 </script>
 
 <main
@@ -45,7 +47,7 @@
 
   {#if saunaSessions.length}
     {#each [...saunaSessions].reverse() as session, i}
-      <!-- {#c(index = i + 1)} -->
+      <h4>{generateIndex(i)}</h4>
       <h3 class="text-slate-200 mt-5">
         {format(fromUnixTime(session?.start_at), "dd.MM.yy")}
       </h3>
@@ -59,7 +61,6 @@
           )
         )}
       </h3>
-      <!-- <h4>{index}</h4> -->
       <Chart
         chartValues={session.temperatures.filter((item, index) => {
           if (index % 10 === 0) {
